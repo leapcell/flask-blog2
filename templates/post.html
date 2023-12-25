@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body class="bg-white font-sans leading-normal tracking-normal">
+
+    <!--Nav-->
+    <nav class="bg-gray-900 p-4 mt-0 w-full">
+        <div class="container mx-auto flex items-center">
+            <div class="flex text-white font-extrabold">
+                <a class="flex text-white text-base no-underline hover:text-white hover:no-underline" href="/">
+                    👻 <span class="hidden w-0 md:w-auto md:block pl-1">{{ author }}' Blog</span>
+                </a>
+            </div>
+            <div class="flex pl-4 text-sm">
+                <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+                    <li class="mr-2">
+                        <a class="inline-block py-2 px-2 text-white no-underline" href="/">HOME</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--slide in nav-->
+    <div id="header" class="bg-white fixed w-full z-10 top-0 hidden animated" style="opacity: .95;">
+        <div class="bg-white">
+            <div class="flex flex-wrap items-center content-center">
+                <div class="flex w-1/2 justify-start text-white font-extrabold">
+                    <a class="flex text-gray-900 no-underline hover:text-gray-900 hover:no-underline pl-2" href="/">
+                        👻 <span class="hidden w-0 md:w-auto md:block pl-1">
+                            {{ author }}'s Blog
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <!--Progress bar-->
+        <div id="progress" class="h-1 bg-white shadow"
+            style="background:linear-gradient(to right, #4dc0b5 var(--scroll), transparent 0);"></div>
+    </div>
+
+
+    <!--Title-->
+
+
+    <!-- <div class="container" style="height: 15vh;">
+    </div> -->
+
+    <!--Container-->
+    <div class="container max-w-5xl mx-auto mt-5 ">
+        <div class="text-center pt-16 md:pt-32">
+            <p class="text-sm md:text-base text-green-500 font-bold">{{ timestamp_format(post['create_time']) }}</p>
+            <h1 class="font-bold break-normal text-3xl md:text-5xl">{{ post["title"] }}</h1>
+        </div>
+
+
+        <div class="mx-0 sm:mx-6">
+
+            <div class="bg-white w-full p-8 md:p-24 text-xl md:text-2xl text-gray-800 leading-normal"
+                style="font-family:Georgia,serif;">
+
+                <!--Post Content-->
+
+                {{ markdown_html|safe }}
+
+
+                <!--/ Post Content-->
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="bg-gray-200">
+
+        <div class="container w-full max-w-6xl mx-auto px-2 py-8">
+            {% if more_postes %}
+            <h3 class="text-center">
+                More Posts
+            </h3>
+            {% endif %}
+            <div class="flex flex-wrap -mx-2">
+                
+                {% for post in more_postes %}
+                <!--1/3 col -->
+                <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                        <a href="/post/{{ post['record_id'] }}" class="flex flex-wrap no-underline hover:no-underline">
+                            {% if(post["cover"]) %}
+                            <img src="{{ post['cover'][0] }}" class="h-64 rounded-t pb-6 mx-auto">
+                            {% endif %}
+                            <p class="w-full text-gray-600 text-xs md:text-sm px-6"> {{
+                                timestamp_format(post['create_time']) }}</p>
+                            <div class="w-full font-bold text-xl text-gray-900 px-6">{{ post["title"] }}
+                            </div>
+                            <p class="text-gray-800 font-serif text-base px-6 mb-5">
+                                {{ post["summary"] }}
+                            </p>
+                        </a>
+                    </div>
+                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                        <div class="flex items-center justify-between">
+                            <p class="text-gray-600 text-xs md:text-sm">Read More</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+    </div>
+
+    <footer class="bg-gray-900">
+        <div class="container max-w-6xl mx-auto flex items-center px-2 py-8">
+
+            <div class="w-full mx-auto flex flex-wrap items-center text-center">
+                <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+                    <a class="text-gray-900 no-underline hover:text-gray-900 hover:no-underline" href="/">
+                        <span class="text-base text-gray-200">Welcome to my blog - here I share everything that I
+                            love.</span>
+                    </a>
+                </div>
+            </div>
+
+
+
+        </div>
+    </footer>
+
+    {% endblock %}
