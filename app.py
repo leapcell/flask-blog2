@@ -74,7 +74,7 @@ def search():
 def post(post_id):
     record = table.get_by_id(post_id)
     more_records = table.select().limit(3).query()
-    markdown_html = markdown.markdown(record["content"])
+    markdown_html = markdown.markdown(record["content"] or '')
     params = {
         "author": author,
         "avatar": avatar,

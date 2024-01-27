@@ -76,7 +76,11 @@
                             <div class="w-full font-bold text-xl text-gray-900 px-6">{{ post["title"] }}
                             </div>
                             <p class="text-gray-800 font-serif text-base px-6 mb-5">
+                                {% if (post["content"]) %}
                                 {{ post["content"][:200] }}
+                                {% else %}
+                                {{ post["content"] }}
+                                {% endif %}
                             </p>
                         </a>
                     </div>
